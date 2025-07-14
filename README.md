@@ -19,9 +19,9 @@ Routing protocols:
 - **OSPF** used internally for each site’s routing
 
 ## ⚙️ Key Components
-- **Site A Routers**: R5 and R4  
+- **Site A Routers**: R5 and SW01 
 - **MPLS Backbone**: R10 (PE), R11 (P), R12 (PE)  
-- **Site B Routers**: R6 and R7  
+- **Site B Routers**: R7 and SW02  
 - **Internet Path**: ISP-1, ISP-3, Transit Router  
 - **GRE Tunnel**: Configured over Internet segment between Site A and Site B to support encapsulated traffic with routing protocol payload
 
