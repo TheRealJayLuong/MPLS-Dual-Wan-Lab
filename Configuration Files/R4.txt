@@ -1,0 +1,121 @@
+
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R4
+!
+boot-start-marker
+boot-end-marker
+!
+aqm-register-fnf
+!
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ no shutdown
+ ip address 100.1.1.1 255.255.255.0
+ tunnel source Ethernet0/1
+ tunnel destination 16.1.1.1
+!
+interface Ethernet0/0
+ no shutdown
+ ip address 10.1.1.254 255.255.255.0
+!
+interface Ethernet0/1
+ no shutdown
+ ip address 15.1.1.1 255.255.255.252
+!
+interface Ethernet0/2
+ no shutdown
+ ip address 14.1.1.1 255.255.255.0
+!
+interface Ethernet0/3
+ no shutdown
+ no ip address
+ shutdown
+!
+router ospf 1
+ network 10.1.1.0 0.0.0.255 area 0
+ network 100.1.1.0 0.0.0.255 area 0
+!
+router bgp 5
+ bgp log-neighbor-changes
+ network 10.1.1.0 mask 255.255.255.0
+ neighbor 14.1.1.2 remote-as 100
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 16.1.1.1 255.255.255.255 Ethernet0/1 15.1.1.2
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+!
+end
